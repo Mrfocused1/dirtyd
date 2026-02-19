@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dirty Den | Where Grime Meets Grub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Permanent+Marker&amp;family=Rubik+Glitch&amp;family=Bebas+Neue&amp;family=Roboto+Mono:wght@400;700&amp;family=Special+Elite&amp;family=Stardos+Stencil:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F25C24",
+                        "dirty-cream": "#F0EAD6",
+                        "background-light": "#0B1526",
+                        "background-dark": "#050A14",
+                        "navy-base": "#0B1526",
+                        "den-black": "#111111",
+                        "den-charcoal": "#1c1c1c",
+                        "den-navy": "#1a2436",
+                        "den-rust": "#dd5c33",
+                        "den-cream": "#e8e0cc",
+                        "den-yellow": "#d6a848",
+                        "den-ink": "#0f141e",
+                    },
+                    fontFamily: {
+                        display: ['"Anton"', 'sans-serif'],
+                        marker: ['"Permanent Marker"', 'cursive'],
+                        glitch: ['"Rubik Glitch"', 'display'],
+                        body: ['"Roboto Mono"', 'monospace'],
+                        block: ['"Anton"', 'sans-serif'],
+                        mono: ['"Special Elite"', 'serif'],
+                        stamp: ['"Stardos Stencil"', 'serif'],
+                    },
+                    backgroundImage: {
+                        'grunge-pattern': "url('https://www.transparenttextures.com/patterns/black-felt.png')",
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/dust.png')",
+                    },
+                    boxShadow: {
+                        'neon-orange': '0 0 10px rgba(242, 92, 36, 0.5), 0 0 20px rgba(242, 92, 36, 0.3)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+.grunge-overlay {
+    position: relative;
+}
+.torn-paper-bottom {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 98% 98%, 96% 95%, 94% 98%, 92% 95%, 90% 98%, 88% 95%, 86% 98%, 84% 95%, 82% 98%, 80% 95%, 78% 98%, 76% 95%, 74% 98%, 72% 95%, 70% 98%, 68% 95%, 66% 98%, 64% 95%, 62% 98%, 60% 95%, 58% 98%, 56% 95%, 54% 98%, 52% 95%, 50% 98%, 48% 95%, 46% 98%, 44% 95%, 42% 98%, 40% 95%, 38% 98%, 36% 95%, 34% 98%, 32% 95%, 30% 98%, 28% 95%, 26% 98%, 24% 95%, 22% 98%, 20% 95%, 18% 98%, 16% 95%, 14% 98%, 12% 95%, 10% 98%, 8% 95%, 6% 98%, 4% 95%, 2% 98%, 0% 95%);
+}
+.torn-paper-top {
+    clip-path: polygon(0% 5%, 2% 2%, 4% 5%, 6% 2%, 8% 5%, 10% 2%, 12% 5%, 14% 2%, 16% 5%, 18% 2%, 20% 5%, 22% 2%, 24% 5%, 26% 2%, 28% 5%, 30% 2%, 32% 5%, 34% 2%, 36% 5%, 38% 2%, 40% 5%, 42% 2%, 44% 5%, 46% 2%, 48% 5%, 50% 2%, 52% 5%, 54% 2%, 56% 5%, 58% 2%, 60% 5%, 62% 2%, 64% 5%, 66% 2%, 68% 5%, 70% 2%, 72% 5%, 74% 2%, 76% 5%, 78% 2%, 80% 5%, 82% 2%, 84% 5%, 86% 2%, 88% 5%, 90% 2%, 92% 5%, 94% 2%, 96% 5%, 98% 2%, 100% 5%, 100% 100%, 0% 100%);
+}
+.rough-border {
+    border: 4px solid #F0EAD6;
+    border-radius: 2px;
+    box-shadow: 5px 5px 0 #F25C24;
+    transition: all 0.2s ease;
+}
+.rough-border:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 #F25C24;
+}
+.text-distressed {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+.text-stroke-orange {
+    -webkit-text-stroke: 2px #F25C24;
+    color: transparent;
+}
+@keyframes noise {
+    0%   { background-position: 0 0; }
+    10%  { background-position: -5% -10%; }
+    20%  { background-position: -15% 5%; }
+    30%  { background-position: 7% -25%; }
+    40%  { background-position: 20% 25%; }
+    50%  { background-position: -25% 10%; }
+    60%  { background-position: 15% 5%; }
+    70%  { background-position: 0% 15%; }
+    80%  { background-position: 25% 35%; }
+    90%  { background-position: -10% 10%; }
+    100% { background-position: 0 0; }
+}
+.noise-bg {
+    display: none;
+}
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+    animation: marquee 20s linear infinite;
+}
+
+/* ===== POSTER CARDS ===== */
+.poster-card {
+    background-color: #ffffff;
+    border: 1px solid #c8bfa8;
+    position: relative;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.12), inset 0 0 40px rgba(0,0,0,0.02);
+    border-radius: 2px 3px 2px 4px;
+}
+.poster-card-dark {
+    background-color: #111118 !important;
+    border-color: #2a2a35 !important;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5) !important;
+}
+.tape-tl { top:-10px; left:-15px;  width:80px;  height:25px; transform:rotate(-15deg); }
+.tape-tr { top:-10px; right:-15px; width:80px;  height:25px; transform:rotate(15deg); }
+.tape-tc { top:-10px; left:50%;    width:100px; height:30px; transform:translateX(-50%) rotate(-2deg); }
+
+/* ===== MANIFESTO HERO ===== */
+.paper-texture {
+    background-color: #e8e0cc;
+    background-image:
+        radial-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 18px 18px, 100% 24px;
+}
+.tear-both {
+    clip-path: polygon(
+        0% 2%, 1.5% 0%, 3% 2.5%, 4.5% 0.5%, 6% 2%, 7.5% 0%, 9% 2.5%,
+        10.5% 0.5%, 12% 2%, 13.5% 0%, 15% 2.5%, 16.5% 0.5%, 18% 2%,
+        19.5% 0%, 21% 2.5%, 22.5% 0.5%, 24% 2%, 25.5% 0%, 27% 2.5%,
+        28.5% 0.5%, 30% 2%, 31.5% 0%, 33% 2.5%, 34.5% 0.5%, 36% 2%,
+        37.5% 0%, 39% 2.5%, 40.5% 0.5%, 42% 2%, 43.5% 0%, 45% 2.5%,
+        46.5% 0.5%, 48% 2%, 49.5% 0%, 51% 2.5%, 52.5% 0.5%, 54% 2%,
+        55.5% 0%, 57% 2.5%, 58.5% 0.5%, 60% 2%, 61.5% 0%, 63% 2.5%,
+        64.5% 0.5%, 66% 2%, 67.5% 0%, 69% 2.5%, 70.5% 0.5%, 72% 2%,
+        73.5% 0%, 75% 2.5%, 76.5% 0.5%, 78% 2%, 79.5% 0%, 81% 2.5%,
+        82.5% 0.5%, 84% 2%, 85.5% 0%, 87% 2.5%, 88.5% 0.5%, 90% 2%,
+        91.5% 0%, 93% 2.5%, 94.5% 0.5%, 96% 2%, 97.5% 0%, 100% 2%,
+        100% 98%, 98.5% 100%, 97% 97.5%, 95.5% 99.5%, 94% 98%,
+        92.5% 100%, 91% 97.5%, 89.5% 99.5%, 88% 98%, 86.5% 100%,
+        85% 97.5%, 83.5% 99.5%, 82% 98%, 80.5% 100%, 79% 97.5%,
+        77.5% 99.5%, 76% 98%, 74.5% 100%, 73% 97.5%, 71.5% 99.5%,
+        70% 98%, 68.5% 100%, 67% 97.5%, 65.5% 99.5%, 64% 98%,
+        62.5% 100%, 61% 97.5%, 59.5% 99.5%, 58% 98%, 56.5% 100%,
+        55% 97.5%, 53.5% 99.5%, 52% 98%, 50.5% 100%, 49% 97.5%,
+        47.5% 99.5%, 46% 98%, 44.5% 100%, 43% 97.5%, 41.5% 99.5%,
+        40% 98%, 38.5% 100%, 37% 97.5%, 35.5% 99.5%, 34% 98%,
+        32.5% 100%, 31% 97.5%, 29.5% 99.5%, 28% 98%, 26.5% 100%,
+        25% 97.5%, 23.5% 99.5%, 22% 98%, 20.5% 100%, 19% 97.5%,
+        17.5% 99.5%, 16% 98%, 14.5% 100%, 13% 97.5%, 11.5% 99.5%,
+        10% 98%, 8.5% 100%, 7% 97.5%, 5.5% 99.5%, 4% 98%,
+        2.5% 100%, 1% 97.5%, 0% 98%
+    );
+}
+.tape {
+    position: absolute;
+    background: rgba(210, 185, 95, 0.6);
+    border: 1px solid rgba(180, 155, 65, 0.35);
+}
+@keyframes tapeShimmer {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.75; }
+}
+.tape-anim {
+    animation: tapeShimmer 4s ease-in-out infinite;
+}
+.stamp {
+    font-family: 'Stardos Stencil', serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: inline-block;
+    opacity: 0.85;
+}
+.stamp-rust {
+    color: #dd5c33;
+    border: 3px solid #dd5c33;
+    padding: 4px 12px;
+    transform: rotate(-3deg);
+}
+@keyframes stampPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 0.7; }
+}
+.stamp-anim {
+    animation: stampPulse 3s ease-in-out infinite;
+}
+.misregister-subtle {
+    text-shadow:
+        1px 0 0 rgba(210, 45, 45, 0.22),
+        -1px 0 0 rgba(45, 45, 210, 0.18);
+}
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-dirty-cream font-body grunge-overlay overflow-x-hidden">
+
+
+<div class="noise-bg mix-blend-overlay"></div>
+
+<!-- NAV -->
+<nav class="fixed w-full z-40 top-0 left-0 bg-navy-base/95 backdrop-blur-sm border-b-2 border-primary border-opacity-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <div class="flex-shrink-0 flex items-center">
+                <img src="logo.png" alt="Dirty Den" class="h-28 w-auto rounded-sm"/>
+            </div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a class="text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm" href="index.html">Home</a>
+                <a class="text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm" href="menu.html">Menu</a>
+                <a class="text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm" href="contact.html">Contact</a>
+                <a class="bg-primary text-navy-base px-6 py-2 font-display uppercase tracking-widest text-lg transform hover:-rotate-1 transition-transform border-2 border-transparent hover:border-dirty-cream" href="#order">Order Now</a>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-dirty-cream hover:text-primary">
+                    <span class="material-icons text-3xl">menu</span>
+                </button>
+            </div>
+        </div>
+        <!-- MOBILE NAV -->
+        <div id="mobile-menu" class="hidden border-t border-primary/30 pb-4">
+            <a class="block py-3 text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm border-b border-dirty-cream/10" href="index.html">Home</a>
+            <a class="block py-3 text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm border-b border-dirty-cream/10" href="menu.html">Menu</a>
+            <a class="block py-3 text-dirty-cream hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm border-b border-dirty-cream/10" href="contact.html">Contact</a>
+            <a class="block mt-3 text-center bg-primary text-navy-base px-6 py-3 font-display uppercase tracking-widest text-base" href="#order">Order Now</a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero" class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-black pt-20">
+
+    <!-- Background video -->
+    <video class="absolute inset-0 w-full h-full object-cover opacity-30" autoplay muted loop playsinline>
+        <source src="https://videos.pexels.com/video-files/31741794/13524227_1920_1080_25fps.mp4" type="video/mp4"/>
+    </video>
+    <!-- Dark overlay to keep card legible -->
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Ghost 140 BPM background -->
+    <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+        <span class="font-block text-[20vw] text-white leading-none tracking-tighter whitespace-nowrap">140 BPM</span>
+    </div>
+
+    <div class="manifesto-card relative w-full max-w-2xl paper-texture tear-both p-8 md:p-12 rotate-[-1deg] mx-auto mt-10">
+        <!-- Tape strips -->
+        <div class="tape w-24 h-6 -top-2 -left-4 rotate-[-15deg] tape-anim"></div>
+        <div class="tape w-24 h-6 -bottom-2 -right-4 rotate-[-10deg] tape-anim"></div>
+
+        <h1 class="font-block text-4xl md:text-6xl text-den-black mb-6 uppercase leading-[0.9] misregister-subtle">
+            Born in Bow.<br>
+            Raised on bass.
+        </h1>
+
+        <p class="font-mono text-den-charcoal text-lg md:text-xl leading-relaxed font-bold mb-4">
+            Dirty Den is where pub culture meets pirate radio.
+        </p>
+        <p class="font-mono text-den-charcoal text-lg md:text-xl leading-relaxed italic border-l-4 border-den-rust pl-4 mb-8">
+            No clean plates. No quiet nights.
+        </p>
+
+        <div class="flex justify-between items-end">
+            <div class="stamp stamp-rust stamp-anim text-xl md:text-2xl">EST. 2026</div>
+            <div class="w-12 h-12 rounded-full border-2 border-den-ink flex items-center justify-center" style="opacity:0.45;">
+                <span class="font-block text-xl text-den-ink">E3</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE BANNER -->
+<div class="bg-primary py-3 overflow-hidden transform -rotate-1 scale-105 z-20 relative border-y-4 border-navy-base">
+    <div class="whitespace-nowrap animate-marquee inline-block font-display text-2xl text-navy-base uppercase tracking-widest">
+        DIRTY FRIES /// 140 BPM /// SPICY WINGS /// BASS HEAVY /// E3 ENERGY /// NO CLEAN PLATES /// DIRTY FRIES /// 140 BPM /// SPICY WINGS /// BASS HEAVY /// E3 ENERGY /// NO CLEAN PLATES ///&nbsp;
+        DIRTY FRIES /// 140 BPM /// SPICY WINGS /// BASS HEAVY /// E3 ENERGY /// NO CLEAN PLATES /// DIRTY FRIES /// 140 BPM /// SPICY WINGS /// BASS HEAVY /// E3 ENERGY /// NO CLEAN PLATES ///
+    </div>
+</div>
+
+<!-- MENU SECTION -->
+<section class="py-24 px-4 relative bg-background-light dark:bg-background-dark" id="menu">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="font-display text-6xl md:text-7xl text-dirty-cream uppercase mb-4">
+                The <span class="text-primary underline decoration-4 underline-offset-8 decoration-dashed">Filth</span>
+            </h2>
+            <p class="font-body text-dirty-cream/60 uppercase tracking-widest">Signature dishes designed to mess you up</p>
+        </div>
+        <div class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:overflow-visible md:pb-0">
+
+            <!-- Card 1 -->
+            <div class="group relative w-[300px] flex-none snap-start md:w-auto md:flex-auto">
+                <div class="absolute inset-0 bg-primary translate-x-3 translate-y-3 rough-border opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative bg-navy-base border-4 border-dirty-cream p-4 h-full flex flex-col transition-transform group-hover:-translate-y-2">
+                    <div class="relative h-64 overflow-hidden mb-6 border-b-2 border-primary border-dashed">
+                        <div class="absolute top-2 right-2 bg-primary text-navy-base font-bold px-3 py-1 z-10 transform rotate-3 font-display tracking-wide">BEST SELLER</div>
+                        <img alt="The grime burger" class="w-full h-full object-cover filter contrast-125 hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD466_WbFXWLguAO18pu-YbkkAizTOMNeIbrApvLN_JVIbJNOj7jItfmjxEC-LC24-FY8wfL4Ou7zCpKlZLpZ286PtD-ybMuExTHnTHCD6xe-luD_SUrwl-5ezqIOYM59OwN62NLCdmZuz9h6ER_U0AfvWjGaf3QI5qz53dHRKKipdbk9yjzhAjMxuiKfpHSZazPT6z2KSY5kOna4YE6QFchRJTUsKXHLo7wgalAtJLbGmNB7HW8TRuFbyfHp-KwBDJO2Ur-M3muA2-"/>
+                    </div>
+                    <h3 class="font-display text-4xl text-dirty-cream uppercase mb-2">The Grime Burger</h3>
+                    <p class="font-body text-sm text-dirty-cream/70 mb-4 flex-grow">Double smashed patty, American cheese, bacon jam, pickled jalapeños, and our secret 'Dirty Sauce'.</p>
+                    <div class="flex justify-between items-end border-t border-dirty-cream/20 pt-4">
+                        <span class="font-display text-3xl text-primary">£12.50</span>
+                        <button class="add-btn text-dirty-cream font-bold hover:text-primary flex items-center gap-1 uppercase text-sm" data-name="The Grime Burger" data-price="12.50">Add <span class="material-icons text-sm">add</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group relative w-[300px] flex-none snap-start md:w-auto md:flex-auto">
+                <div class="absolute inset-0 bg-primary translate-x-3 translate-y-3 rough-border opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative bg-navy-base border-4 border-dirty-cream p-4 h-full flex flex-col transition-transform group-hover:-translate-y-2">
+                    <div class="relative h-64 overflow-hidden mb-6 border-b-2 border-primary border-dashed">
+                        <img alt="Loaded Fries" class="w-full h-full object-cover filter contrast-125 hover:scale-110 transition-transform duration-500" src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80"/>
+                    </div>
+                    <h3 class="font-display text-4xl text-dirty-cream uppercase mb-2">Bassline Fries</h3>
+                    <p class="font-body text-sm text-dirty-cream/70 mb-4 flex-grow">Skin-on fries drowned in cheese sauce, pulled pork, crispy onions and BBQ drizzle.</p>
+                    <div class="flex justify-between items-end border-t border-dirty-cream/20 pt-4">
+                        <span class="font-display text-3xl text-primary">£8.00</span>
+                        <button class="add-btn text-dirty-cream font-bold hover:text-primary flex items-center gap-1 uppercase text-sm" data-name="Bassline Fries" data-price="8.00">Add <span class="material-icons text-sm">add</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group relative w-[300px] flex-none snap-start md:w-auto md:flex-auto">
+                <div class="absolute inset-0 bg-primary translate-x-3 translate-y-3 rough-border opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative bg-navy-base border-4 border-dirty-cream p-4 h-full flex flex-col transition-transform group-hover:-translate-y-2">
+                    <div class="relative h-64 overflow-hidden mb-6 border-b-2 border-primary border-dashed">
+                        <div class="absolute top-2 right-2 bg-dirty-cream text-navy-base font-bold px-3 py-1 z-10 transform -rotate-2 font-display tracking-wide">SPICY AF</div>
+                        <img alt="Spicy Wings" class="w-full h-full object-cover filter contrast-125 hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc-yO8hzOk2U3GouFFH58blCxEKZRGILGXe0I7a3v58O3S7bJbwfWtEnwSQ5uCFFIvn29qNirhcxwT0pYeiIKpSEKxzlI3-swL1E2_Sk-6_UUFJkFGajnpOtps0IOo-PQGbFrtwrfMEOE8nZaWitWyiH7fwygzrYNuQqXdmQLAIVAWpUKliaGYg9IRKu6QmlO5Kjf3aJ7OrJYo32H6PzShbOEkt6GRHLHa1mzmmxzvwXYhT3tdw2u0GazNU2FZzKCgv2s3JngRonZF"/>
+                    </div>
+                    <h3 class="font-display text-4xl text-dirty-cream uppercase mb-2">Eski Wings</h3>
+                    <p class="font-body text-sm text-dirty-cream/70 mb-4 flex-grow">1kg of wings tossed in scotch bonnet glaze. Not for the weak. Served with blue cheese dip.</p>
+                    <div class="flex justify-between items-end border-t border-dirty-cream/20 pt-4">
+                        <span class="font-display text-3xl text-primary">£14.00</span>
+                        <button class="add-btn text-dirty-cream font-bold hover:text-primary flex items-center gap-1 uppercase text-sm" data-name="Eski Wings" data-price="14.00">Add <span class="material-icons text-sm">add</span></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="mt-20 text-center">
+            <a class="inline-block border-2 border-dirty-cream text-dirty-cream px-12 py-4 font-display uppercase tracking-widest hover:bg-dirty-cream hover:text-navy-base transition-colors text-xl" href="menu.html">
+                See Full Menu
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ON THE DECKS -->
+<section id="events" class="py-20 px-4 md:px-12 bg-den-black">
+    <div class="max-w-4xl mx-auto">
+
+        <div class="flex items-baseline gap-6 mb-12">
+            <h2 class="font-block text-5xl md:text-7xl text-den-cream uppercase" style="border-bottom: 2px solid #e8e0cc; padding-bottom: 4px;">On the Decks</h2>
+            <span class="font-mono text-den-rust text-sm uppercase tracking-widest">Upcoming Sets</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+
+            <!-- Event 1 -->
+            <div class="flex items-center gap-6 border border-den-charcoal p-6">
+                <div class="text-center min-w-[3rem]">
+                    <div class="font-block text-3xl text-den-rust leading-none">22</div>
+                    <div class="font-mono text-xs text-den-cream/60 uppercase tracking-wider mt-1">FEB</div>
+                </div>
+                <div class="w-px self-stretch bg-den-charcoal"></div>
+                <div class="flex-1">
+                    <h3 class="font-block text-xl md:text-2xl text-den-cream uppercase">Selecta Spice B2B DJ Keish</h3>
+                    <p class="font-mono text-sm text-den-cream/50 mt-1">Grime &amp; UKG &middot; Doors 8pm &middot; Free entry before 10pm</p>
+                </div>
+                <div class="stamp stamp-rust text-sm whitespace-nowrap">FREE</div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="flex items-center gap-6 border border-den-charcoal p-6">
+                <div class="text-center min-w-[3rem]">
+                    <div class="font-block text-3xl text-den-rust leading-none">01</div>
+                    <div class="font-mono text-xs text-den-cream/60 uppercase tracking-wider mt-1">MAR</div>
+                </div>
+                <div class="w-px self-stretch bg-den-charcoal"></div>
+                <div class="flex-1">
+                    <h3 class="font-block text-xl md:text-2xl text-den-cream uppercase">Bashment Brunch</h3>
+                    <p class="font-mono text-sm text-den-cream/50 mt-1">Dancehall &middot; Afroswing &middot; 12pm &ndash; 6pm &middot; Table booking essential</p>
+                </div>
+                <span class="font-mono text-den-cream/60 text-sm whitespace-nowrap">£10 entry</span>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="flex items-center gap-6 border border-den-charcoal p-6">
+                <div class="text-center min-w-[3rem]">
+                    <div class="font-block text-3xl text-den-rust leading-none">08</div>
+                    <div class="font-mono text-xs text-den-cream/60 uppercase tracking-wider mt-1">MAR</div>
+                </div>
+                <div class="w-px self-stretch bg-den-charcoal"></div>
+                <div class="flex-1">
+                    <h3 class="font-block text-xl md:text-2xl text-den-cream uppercase">140 BPM Takeover</h3>
+                    <p class="font-mono text-sm text-den-cream/50 mt-1">6-DJ lineup &middot; Full menu &middot; Doors 7pm &middot; Late licence til 3am</p>
+                </div>
+                <div class="stamp stamp-rust text-sm whitespace-nowrap">SOLD OUT</div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- INSIDE THE DEN -->
+<section class="py-20 relative torn-paper-top torn-paper-bottom bg-primary">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1">
+            <div class="bg-navy-base p-8 transform rotate-1 shadow-2xl relative border-4 border-white">
+                <div class="absolute -top-4 -left-4 w-12 h-12 bg-gray-300 rounded-full opacity-50 mix-blend-multiply"></div>
+                <h2 class="font-display text-5xl md:text-6xl text-dirty-cream uppercase leading-none mb-6">
+                    Inside<br/>The Den
+                </h2>
+                <p class="font-body text-dirty-cream/90 mb-6 leading-relaxed">
+                    We aren't a fine dining establishment. We play it loud. We serve it fast. The walls are covered in graffiti and the speakers are blown.
+                </p>
+                <ul class="space-y-4 font-bold uppercase font-display text-xl text-dirty-cream tracking-wide">
+                    <li class="flex items-center gap-3">
+                        <span class="material-icons text-primary">equalizer</span> 140 BPM All Day
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="material-icons text-primary">local_bar</span> Craft Cans &amp; Slushies
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="material-icons text-primary">brush</span> Live Art Sessions
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="order-1 lg:order-2 relative h-96 w-full">
+            <div class="absolute top-0 right-10 w-64 h-72 bg-white p-3 transform rotate-6 shadow-xl z-10 transition-transform hover:rotate-0 hover:scale-105 duration-300">
+                <img alt="Chef in the kitchen" class="w-full h-56 object-cover grayscale contrast-125 mb-2 border border-gray-200" src="chef.jpg"/>
+                <div class="font-marker text-center text-navy-base">In the Kitchen</div>
+            </div>
+            <div class="absolute top-20 left-10 w-64 h-72 bg-white p-3 transform -rotate-6 shadow-xl z-20 transition-transform hover:rotate-0 hover:scale-105 duration-300">
+                <img alt="DJ Decks" class="w-full h-56 object-cover grayscale contrast-125 mb-2 border border-gray-200" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7sFXsPeGhLkm0J4-B6EeE3fNDYRmY_WY-geImH6XzFhUddItEt9mh5sB0X6E08o8xUiuj6fdLPhAXtRGFGiukwi76VHlGAFxmSGtD85qmDpT0xRJuVZCC0CDnDthTnRvVarFx69Bx2e2EEStNGAq6p441AflQqpwv--ZkIAGLiFdKeeVwb-0I6ERWt0yvwdCyCqTr-JTq6W5ASe38kEd_-7Za7UMHydTUDXCiGMfEWAPUli-ZmtOLu6mV1u1TvEjm2zHdYJbBlLIw"/>
+                <div class="font-marker text-center text-navy-base">Decks on Deck</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PLACE YOUR ORDER -->
+<section id="order" class="py-24 relative bg-background-light">
+    <div class="max-w-3xl mx-auto px-6">
+        <div class="poster-card p-8 md:p-12 bg-dirty-cream text-navy-base transform rotate-1">
+            <div class="tape tape-tc" style="background-color: rgba(0,0,0,0.1);"></div>
+            <h2 class="font-display text-5xl uppercase mb-8 border-b-4 border-navy-base pb-2">Place Your Order for Delivery</h2>
+
+            <form class="space-y-6 font-body font-bold" onsubmit="event.preventDefault();">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest mb-1">Name</label>
+                        <input type="text" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary transition-colors" placeholder="e.g. Wiley">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest mb-1">Phone</label>
+                        <input type="tel" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary transition-colors" placeholder="07xxx xxxxxx">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest mb-1">Delivery Address</label>
+                    <input type="text" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary transition-colors" placeholder="Street, London, Postcode">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest mb-1">Date</label>
+                        <input type="date" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary font-body">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest mb-1">Time</label>
+                        <input type="time" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary font-body">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-widest mb-1">Notes / Demands</label>
+                    <input type="text" class="w-full bg-transparent border-b-2 border-navy-base py-2 focus:outline-none focus:border-primary transition-colors" placeholder="Allergies? Special requests?">
+                </div>
+
+                <button type="submit" class="w-full bg-navy-base text-dirty-cream font-display text-2xl uppercase py-4 hover:bg-primary transition-colors mt-8">
+                    Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-navy-base pt-24 pb-12 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCn8zdvTa5Ah5JIkPgetAcC6VSPbThYCMr56fBp8j1hqPmWzkb9pDmLBBYwUqYu0VrDrmGXFVe2VXYVde3Wx7CEqr94NPsjLRRrjVueJm2ZbDk-C3yjOdLn6zDmXh_8O475ItHPI8mFY_IQz99ICAnW8UwLyJU3lZD_bkb2BRzWEjhcPzxajM5zKVpQrNLGZnM8fgXjm1DYT-ZN0t91fycWJEjMkSIHwalyPSzXmsmtPwvBGWGCXR3bz8qyN-t0YE6j4l1TsBPUozOQ');"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-dirty-cream/20 pb-12">
+            <div class="col-span-1 md:col-span-2">
+                <img src="logo.png" alt="Dirty Den" class="h-48 w-auto mb-6 rounded-sm"/>
+                <p class="font-body text-dirty-cream/60 max-w-sm mb-6">
+                    Born in the basement. Raised on bass. Serving the community since 2014. No reservations, just turn up and get messy.
+                </p>
+                <div class="flex space-x-4">
+                    <a class="w-10 h-10 border-2 border-dirty-cream flex items-center justify-center rounded-sm hover:bg-primary hover:border-primary hover:text-navy-base transition-all" href="#"><i class="material-icons">facebook</i></a>
+                    <a class="w-10 h-10 border-2 border-dirty-cream flex items-center justify-center rounded-sm hover:bg-primary hover:border-primary hover:text-navy-base transition-all" href="#"><i class="material-icons">camera_alt</i></a>
+                    <a class="w-10 h-10 border-2 border-dirty-cream flex items-center justify-center rounded-sm hover:bg-primary hover:border-primary hover:text-navy-base transition-all" href="#"><i class="material-icons">alternate_email</i></a>
+                </div>
+            </div>
+            <div class="poster-card poster-card-dark p-8">
+                <div class="tape tape-tl"></div>
+                <h3 class="font-display text-3xl uppercase mb-6 border-b border-dirty-cream/20 pb-2 text-primary">Find Us</h3>
+                <address class="not-italic text-base space-y-1 mb-6 text-dirty-cream font-body">
+                    <strong>DIRTY DEN HQ</strong><br>
+                    Unit 4, Railway Arches<br>
+                    Bow Road, London E3 4AA
+                </address>
+                <div class="text-sm text-dirty-cream/60 uppercase tracking-widest space-y-2 font-body">
+                    <p>Mon &ndash; Wed: Closed</p>
+                    <p class="text-primary font-bold">Thu &ndash; Sat: 17:00 &ndash; 01:00</p>
+                    <p>Sunday: 13:00 &ndash; 22:00</p>
+                </div>
+            </div>
+            <div class="poster-card poster-card-dark p-8">
+                <div class="tape tape-tr"></div>
+                <h3 class="font-display text-3xl uppercase mb-6 border-b border-dirty-cream/20 pb-2 text-primary">Locations</h3>
+                <ul class="text-sm text-dirty-cream/60 uppercase tracking-widest space-y-4 font-body">
+                    <li class="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+                        <span class="text-primary font-display text-lg">01</span> Hackney Wick (HQ)
+                    </li>
+                    <li class="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+                        <span class="text-primary font-display text-lg">02</span> Peckham Rye
+                    </li>
+                    <li class="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+                        <span class="text-primary font-display text-lg">03</span> Camden Lock
+                    </li>
+                    <li class="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+                        <span class="text-primary font-display text-lg">04</span> Brixton
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-between items-center text-xs font-body text-dirty-cream/40 uppercase tracking-widest">
+            <p>&copy; 2026 Dirty Den Ltd. All Rights Reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a class="hover:text-primary" href="#">Privacy</a>
+                <a class="hover:text-primary" href="#">Terms</a>
+                <a class="hover:text-primary" href="#">Allergens</a>
+            </div>
+        </div>
+        <div class="mt-8 text-center opacity-20">
+            <p class="font-glitch text-6xl text-dirty-cream select-none">E3 ENERGY</p>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<style>
+@keyframes cart-pulse { 0%,100%{transform:scale(1)} 40%{transform:scale(1.3)} }
+.cart-pulse { animation: cart-pulse 0.35s ease-out; display: inline-block; }
+</style>
+
+<!-- ── FLOATING CART BAR ── -->
+<div id="cart-bar" class="fixed bottom-0 left-0 right-0 z-50 translate-y-full transition-transform duration-300 ease-out">
+    <!-- Expanded items (shown when toggled) -->
+    <div id="cart-items-panel" class="hidden bg-navy-base border-t border-dirty-cream/10 overflow-y-auto" style="max-height:14rem"></div>
+    <!-- Main strip -->
+    <div class="bg-navy-base border-t-4 border-primary" style="box-shadow:0 -8px 32px rgba(0,0,0,0.5)">
+        <button type="button" id="cart-bar-toggle" class="w-full flex items-center gap-3 px-4 py-3 text-left select-none">
+            <span class="material-icons text-primary text-2xl">shopping_basket</span>
+            <span id="cart-bar-label" class="flex-1 font-display uppercase text-dirty-cream text-base leading-none truncate"></span>
+            <span id="cart-bar-total" class="font-display text-2xl text-primary whitespace-nowrap">£0.00</span>
+            <span id="cart-chevron" class="material-icons text-dirty-cream/50 transition-transform duration-200">expand_less</span>
+        </button>
+        <div class="flex gap-2 px-4 pb-4">
+            <button type="button" onclick="goToOrder()" class="flex-1 bg-primary text-navy-base font-display text-base uppercase py-3 tracking-widest hover:brightness-110 transition-all">Place Order</button>
+            <button type="button" onclick="clearCart()" class="border-2 border-dirty-cream/20 text-dirty-cream/60 px-4 py-3 hover:border-red-400 hover:text-red-400 transition-all" title="Clear order">
+                <span class="material-icons">delete_outline</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── CART ──────────────────────────────────────────────
+const cart = [];
+let cartOpen = false;
+
+function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) { existing.qty++; } else { cart.push({ name, price: parseFloat(price), qty: 1 }); }
+    renderCart();
+    showCartBar();
+    pulseTotal();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+    if (cart.length === 0) hideCartBar();
+}
+
+function clearCart() {
+    cart.length = 0;
+    cartOpen = false;
+    renderCart();
+    hideCartBar();
+}
+
+function goToOrder() {
+    document.getElementById('order').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showCartBar() {
+    document.getElementById('cart-bar').classList.remove('translate-y-full');
+}
+
+function hideCartBar() {
+    cartOpen = false;
+    document.getElementById('cart-bar').classList.add('translate-y-full');
+    document.getElementById('cart-items-panel').classList.add('hidden');
+    document.getElementById('cart-chevron').style.transform = '';
+}
+
+function pulseTotal() {
+    const el = document.getElementById('cart-bar-total');
+    el.classList.remove('cart-pulse');
+    void el.offsetWidth;
+    el.classList.add('cart-pulse');
+}
+
+function renderCart() {
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    const total    = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('cart-bar-label').textContent = totalQty === 1 ? cart[0].name : totalQty + ' items';
+    document.getElementById('cart-bar-total').textContent = '\u00a3' + total.toFixed(2);
+    document.getElementById('cart-items-panel').innerHTML = cart.map((item, i) =>
+        '<div class="flex justify-between items-center px-4 py-3 border-b border-dirty-cream/10">' +
+            '<div class="flex items-center gap-2 flex-1 min-w-0">' +
+                '<span class="font-body font-bold text-sm uppercase text-dirty-cream truncate">' + item.name + '</span>' +
+                (item.qty > 1 ? '<span class="shrink-0 text-xs px-1.5 py-0.5 font-bold text-navy-base" style="background:#F25C24">\u00d7' + item.qty + '</span>' : '') +
+            '</div>' +
+            '<div class="flex items-center gap-3 ml-3 shrink-0">' +
+                '<span class="font-body font-bold text-sm" style="color:#F25C24">\u00a3' + (item.price * item.qty).toFixed(2) + '</span>' +
+                '<button type="button" onclick="removeFromCart(' + i + ')" class="text-dirty-cream/40 hover:text-red-400 transition-colors"><span class="material-icons text-sm">close</span></button>' +
+            '</div>' +
+        '</div>'
+    ).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(btn.dataset.name, btn.dataset.price));
+    });
+
+    document.getElementById('cart-bar-toggle').addEventListener('click', () => {
+        cartOpen = !cartOpen;
+        document.getElementById('cart-items-panel').classList.toggle('hidden', !cartOpen);
+        document.getElementById('cart-chevron').style.transform = cartOpen ? 'rotate(180deg)' : '';
+    });
+
+    // Mobile menu
+    const mobileBtn  = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileBtn && mobileMenu) {
+        const icon = mobileBtn.querySelector('.material-icons');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+        });
+        mobileMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                icon.textContent = 'menu';
+            });
+        });
+    }
+});
+</script>
+</body></html>
