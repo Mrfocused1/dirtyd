@@ -940,6 +940,16 @@ function voiceStart() {
                 add_to_cart: function(p) {
                     if (typeof addToCart === 'function') addToCart(p.name, p.price);
                     return Promise.resolve('Added ' + p.name + ' to order');
+                },
+                remove_from_cart: function(p) {
+                    var idx = cart.findIndex(function(i) {
+                        return i.name.toLowerCase() === p.name.toLowerCase();
+                    });
+                    if (idx !== -1) {
+                        removeFromCart(idx);
+                        return Promise.resolve('Removed ' + p.name + ' from order');
+                    }
+                    return Promise.resolve(p.name + ' was not in the order');
                 }
             }
         });
